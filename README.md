@@ -77,14 +77,14 @@ Setting up an account is easy. For free and open source development, this is fre
 
 To setup a Travis account, go to [https://travis-ci.org](https://travis-ci.org).
 
-![Travis homepage](TravisHomepage.png)
+![Travis homepage](TravisHomepageBordered.png)
 
 Using your GitHub account, this is a breeze. 
 
 Travis will show you all GitHub repository you have. You will have to activate these
 by clicking on a slider:
 
-![Overview of the accounts checked by Travis](TravisAccounts.png)
+![Overview of the accounts checked by Travis](TravisAccountsBordered.png)
 
 After submitting your first Travis script, Travis will take you to a different
 first dialog. This dialog shows the build status of all GitHubs checked by Travis:
