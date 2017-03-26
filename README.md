@@ -69,13 +69,13 @@ using a GitHub account.
 Setting up GitHub and Travis is very straightforward. Here a global overview of
 what needs to be done.
 
-To setup a GitHub account, go to [www.github.com](www.github.com).
+To setup a GitHub account, go to [https://github.com](https://github.com).
 
 ![The GitHub homepage](GitHubHomepage.png)
 
 Setting up an account is easy. For free and open source development, this is free.
 
-To setup a Travis account, go to [www.travis-ci.org](www.travis-ci.org).
+To setup a Travis account, go to [https://travis-ci.org](https://travis-ci.org).
 
 ![Travis homepage](TravisHomepage.png)
 
