@@ -18,7 +18,7 @@ I choose.
 
 This article introduces how to add continuous integration and other goodies to your code.
 
-## Advantages of setting up a continuous integration service
+## Features of a continuous integration service
 
 There are many advantages of setting up a continuous integration service:
 
@@ -26,8 +26,7 @@ There are many advantages of setting up a continuous integration service:
  * The build script shows all steps to build your project, and is tested to work
  * Code can be analysed statically, that, as a bonus, may aid beginners learning the language
  * Quality can be enforced in incoming Pull Requests
-
-## Disadvantages of setting up a continuous integration service
+ * Run-time profiling can be 
 
 There are some potential disadvantages of setting up a continuous integration service:
 
@@ -61,6 +60,36 @@ Travis CI|Jenkins, Appveyor, Codeship, Wercker
 GCC|`clang`
 `cppcheck`|`clang-tidy`, OCLint
 `gprof`|`perf`
+
+There is some synergy between GitHub and Travis: one can login to Travis
+using a GitHub account.
+
+## Setting up GitHub and Travis
+
+Setting up GitHub and Travis is very straightforward. Here a global overview of
+what needs to be done.
+
+To setup a GitHub account, go to [www.github.com](www.github.com).
+
+![The GitHub homepage](GitHubHomepage.png)
+
+Setting up an account is easy. For free and open source development, this is free.
+
+To setup a Travis account, go to [www.travis-ci.org](www.travis-ci.org).
+
+![Travis homepage](TravisHomepage.png)
+
+Using your GitHub account, this is a breeze. 
+
+Travis will show you all GitHub repository you have. You will have to activate these
+by clicking on a slider:
+
+![Overview of the accounts checked by Travis](TravisAccounts.png)
+
+After submitting your first Travis script, Travis will take you to a different
+first dialog. This dialog shows the build status of all GitHubs checked by Travis:
+
+![Overview of GitHub statuses](TravisAccountStatuses.png)
 
 ## Building a C++98 Hello World program
 
@@ -136,6 +165,8 @@ script:
 
 Travis will setup a newer distro (Trusty Tahr), instead of the one used by default (Precise Pangolin).
 A PPA is added for (even) newer packages and `g++-6` is installed. Then `g++` is redirected to use `g++-6`.
+
+![Travis CI build log of the C++17 Hello World program](travis_gcc_cpp17.png)
 
 This Travis script is one of many ways to achieve the same and not necessarily the best in all aspects. 
 Feel encouraged to suggest improvements to any of the GitHubs used in this article. As when you'd
@@ -322,7 +353,7 @@ If I do not use your favorite tool yet, I'd be happy to add it to my battery of 
 
 ## Conclusion
 
-Automation is good. GitHub and Travis happily do whatever you'd like them to do.
+We know automation is good. GitHub and Travis happily do whatever you'd like them to do.
 Setting up is easy: you'll need a GitHub account and a Travis script that has all your needs.
 Not only will continuous integration help an expert in finding those hard-to-find bugs,
 but it will also aid a beginner in leaning C++.
@@ -344,4 +375,3 @@ from the literature, especially from 'The Pragmatic Programmer'
 by Andrew Hunt and David Thomas. After 16 years of experience in C++, I
 enjoy to see my students pursue a same dead end I once took, and prevent
 them wasting their time too long on it.
-
