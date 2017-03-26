@@ -18,8 +18,6 @@ I choose.
 
 This article introduces how to add continuous integration and other goodies to your code.
 
-## Features of a continuous integration service
-
 There are many advantages of setting up a continuous integration service:
 
  * Errors are detected directly after a commit
@@ -34,14 +32,16 @@ There are some potential disadvantages of setting up a continuous integration se
  * It takes some time to set up
  * For commercial development, a continuous integration service comes with a price
 
-## Overview
-
-This article will show the setups:
+This article will show these setups in detail:
 
  * Building a C++98 Hello World program
  * Building a C++17 Hello World program
  * Adding static code analysis by `cppcheck`
  * Profiling your code
+
+Some more extensions are mentioned before concluding that
+adding continuous integration to your build is beneficial
+for beginners, novices and experts.
 
 ## The tools I use are just an example
 
@@ -349,6 +349,8 @@ Detecting memory leaks|`valgrind`
 Checking for undefined behavior|UBSAN, `tsan`
 Check if the documentation has stylistic issues|`proselint`
 
+An overview of all my work can be viewed in 
+[my Travis CI C++ tutorial](https://github.com/richelbilderbeek/travis_cpp_tutorial). 
 If I do not use your favorite tool yet, I'd be happy to add it to my battery of tools.
 
 ## Conclusion
