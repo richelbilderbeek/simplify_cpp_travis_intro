@@ -61,11 +61,6 @@ Travis CI|Jenkins, Appveyor, Codeship, Wercker
 GCC|`clang`
 `cppcheck`|`clang-tidy`, OCLint
 `gprof`|`perf`
----|---
-`qmake`|Autoconf, `cmake`
-`gcov`|`tcov`
-Codecov|Coveralls
-OCLint|`clang-format`
 
 ## Building a C++98 Hello World program
 
