@@ -16,7 +16,19 @@ I choose.
 
 ![An automatic sugar cane farm, from http://www.minecraftbuildingideas.com/p/farming-new.html](automatic_farm.png)
 
-This article introduces how to add continuous integration and other goodies to your code.
+This article introduces how to add continuous integration and other goodies to some simple example software projects.
+
+## What is continuous integration?
+
+Continuous integration is the practice of directly/continuously merging new code within an existing project.
+Adding code should be easy to do. In this article, I will extend this definition of CI, by also including all the
+processes that test and measure the newly added code. As a definition I will use the following:
+
+Continuous integration is the practice of directly/continuously merging new code within an existing project,
+followed by automatically testing and measuring the new code its behavior and quality, resulting in a
+diagnostic report fast (say, within an hour).
+
+A continuous integration service is a website that allows for continuous integration.
 
 There are many advantages of setting up a continuous integration service:
 
@@ -24,7 +36,7 @@ There are many advantages of setting up a continuous integration service:
  * The build script shows all steps to build your project, and is tested to work
  * Code can be analysed statically, that, as a bonus, may aid beginners learning the language
  * Quality can be enforced in incoming Pull Requests
- * Run-time profiling can be 
+ * Run-time profiling allows to see which commits have impacted run-time speed 
 
 There are some potential disadvantages of setting up a continuous integration service:
 
@@ -32,7 +44,7 @@ There are some potential disadvantages of setting up a continuous integration se
  * It takes some time to set up
  * For commercial development, a continuous integration service comes with a price
 
-This article will show these setups in detail:
+This article will show these minimal-but-complete setups in detail:
 
  * Building a C++98 Hello World program
  * Building a C++17 Hello World program
@@ -43,10 +55,10 @@ Some more extensions are mentioned before concluding that
 adding continuous integration to your build is beneficial
 for beginners, novices and experts.
 
-## The tools I use are just an example
+## Tools to use
 
-This article shows some advantages using a continuous
-integration service. To have complete examples, I had
+The tools I show in this article are just an example.
+To have complete examples, I had
 to pick some specific programs/websites/services out of many.
 
 In the table below, you can see the tools I picked for this article, and alternatives
@@ -55,14 +67,14 @@ that probably are just as good:
 Tools I will be using|Examples of alternatives that are just as good
 ---|---
 `git`|BitKeeper, Gnu Bazaar, Mercurial
-GitHub|BitBucket, Sourceforge,GNU Savannah
+GitHub|BitBucket, Sourceforge, GNU Savannah
 Travis CI|Jenkins, Appveyor, Codeship, Wercker
 GCC|`clang`
 `cppcheck`|`clang-tidy`, OCLint
 `gprof`|`perf`
 
-There is some synergy between GitHub and Travis: one can login to Travis
-using a GitHub account.
+Although the tools in isolation are just as good, their combinations may 
+work less well. Especially the combination of GitHub and Travis works seamlessly.
 
 ## Setting up GitHub and Travis
 
@@ -79,7 +91,7 @@ To setup a Travis account, go to [https://travis-ci.org](https://travis-ci.org).
 
 ![Travis homepage](TravisHomepageBordered.png)
 
-Using your GitHub account, this is a breeze. 
+Using your GitHub account, this is a breeze: just click on 'Sign in with GitHub'.
 
 Travis will show you all GitHub repository you have. You will have to activate these
 by clicking on a slider:
@@ -97,7 +109,7 @@ The first example shows how to test that a C++98 Hello World program compiles.
 
 This is the code that will be built:
 
-```
+```c++
 #include <iostream>
 
 int main() 
@@ -110,7 +122,7 @@ Travis needs to be instructed what to do when triggered.
 These instruction must be put in a file named `.travis.yml`
 and looks like this:
 
-```
+```yaml
 language: cpp
 compiler: gcc
 
@@ -133,7 +145,7 @@ shows if that merge will break the build.
 
 To celebrate C++17 has been completed [1], I will add a C++17 feature:
 
-```
+```c++
 #include <iostream>
 
 int main() 
@@ -145,7 +157,7 @@ int main()
 
 To build this project successfully, a more elaborate Travis build script is needed:
 
-```
+```yaml
 language: cpp
 compiler: gcc
 dist: trusty
@@ -173,12 +185,11 @@ Feel encouraged to suggest improvements to any of the GitHubs used in this artic
 submit me a Pull Request, Travis will show me both if this C++17 code still compiles and how
 long it took to run the script.
 
-
 ## Adding static code analysis by `cppcheck`
 
 Spot the bug:
 
-```
+```c++
 int main() 
 {
   int a[3] = { 0, 1, 2 };
@@ -196,7 +207,7 @@ and give a friendly reminder to the person that wrote the code.
 
 This Travis script tests the project to build and tests the code statically with `cppcheck`:
 
-```
+```yaml
 language: cpp
 compiler: gcc
 dist: trusty
@@ -242,10 +253,10 @@ Some beginner C++ programmers have an obsession with run-time speed.
 It is known we should prefer measuring over following a gut-feeling,
 but a beginner may not know how to do profiling.
 
-In this example, the rutime speed of `std::sort` is compared against a handcrafted ('lightning fast!')
+In this example, the runtime speed of `std::sort` is compared against a handcrafted ('lightning fast!')
 function:
 
-```
+```c++
 #include <algorithm>
 #include <cassert>
 #include <iostream>
@@ -294,12 +305,12 @@ int main()
 ```
 
 The two sorting implementation work on the same input and are checked to have the same output.
-The exact working of `sort_a` (psst, a bubble sort!) is unimportant. 
+The exact working of `sort_a` is unimportant (psst, it's a bubble sort!). 
 The assert statement ensures that profiling is done in release mode.
 
 Travis runs and profiles the code with the following script:
 
-```
+```yaml
 language: cpp
 compiler: gcc
 dist: trusty
@@ -330,15 +341,18 @@ a profiling log is created, as shown here:
 
 It shows clearly that `std::sort` heavily outcompeted the 'lightning fast!' function.
 
-This profiling example only shows two implementations competing with each other. That
-could also be measured using an STL timer. Profiling information gets more interesting
-when a project grows, when there are dozens of functions. It helps showing which
-functions take up the majority of the computation time. And it teaches beginners that
+This profiling example only shows two implementations competing with each other. In this simple
+example, that could just as easily be measured with an STL timer. But using `gprof` scales
+better to bigger projects. It's the bigger projects in which profiling information gets more 
+interesting, as there are many functions, each with its own Big-O complexity. `gprof`
+will show which functions take up the majority of the computation time. 
+
+As a bonus, `gprof` does an excellent job in convincing beginners that
 most functions are irrelevant to optimize. 
 
 ## Other extensions
 
-I add much more checks to my projects:
+In my own projects, I add much more checks to my projects:
 
 Task|Examples
 ---|---
@@ -374,6 +388,6 @@ but it will also aid a beginner in leaning C++.
 I enjoy to teach programming following the industry's highest standards. 
 My students, aged 7-77 years, are all confronted with quotes of advice 
 from the literature, especially from 'The Pragmatic Programmer' 
-by Andrew Hunt and David Thomas. After 16 years of experience in C++, I
+and '97 Things Every Programmer Should Know'. After 16 years of experience in C++, I
 enjoy to see my students pursue a same dead end I once took, and prevent
 them wasting their time too long on it.
