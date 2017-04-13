@@ -10,7 +10,7 @@ The article is in progress and spontaneous feedback is welcomed. Feel encouraged
 
 Minecraft players can tell you: automation is great! It usually takes some time to set up, but then
 you profit indefinitely. But where my minor programming students set up some Minecraft farming
-contraption, I like to harvest as much information from my code that I get get. This ranges from
+contraption, I like to harvest as much information from my code that I can get. This ranges from
 the basic question 'Does it build (today)?' to getting code coverage, profiling information and whatever
 I choose.
 
@@ -241,7 +241,7 @@ This is the Travis output:
 
 Great, Travis and `cppcheck` have detected this problem.
 Due to this, the Travis build has failed.
-The person that submitted this commit may have been reminded that in C++ indices at zero.
+The person that submitted this commit may have been reminded that in C++ indices start at zero.
 
 Adding static code analysis tools to a Travis scripts do not only help experts. 
 As in this example, it may help teach beginners. It will give them a friendly reminder
@@ -304,7 +304,7 @@ int main()
 }
 ```
 
-The two sorting implementation work on the same input and are checked to have the same output.
+The two sorting implementations work on the same input and are checked to have the same output.
 The exact working of `sort_a` is unimportant (psst, it's a bubble sort!). 
 The assert statement ensures that profiling is done in release mode.
 
