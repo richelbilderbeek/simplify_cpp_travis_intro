@@ -3,4 +3,3 @@ install:
 
 script: 
   - proselint README.md
-  - proselint Faq.md
